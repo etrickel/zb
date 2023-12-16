@@ -24,7 +24,7 @@ fi
 # Function to be called upon exit
 function on_exit() {
     if grep -E "^p" RESULT > /dev/null; then
-        echo "Exiting tester." >> DEBUG
+        echo "Testing Complete successfully, exiting tester." >> DEBUG
     else
         showOutput
         echo "Error occurred, exiting tester ." >> DEBUG
@@ -116,7 +116,7 @@ function compile(){
 
 log_pos() {
         msg="$1"
-        printf "\t\033[38;5;10m✔ ️$msg\033[0m\n" >> DEBUG
+        printf "\033[38;5;10m✔ ️$msg\033[0m\n" >> DEBUG
 }
 log_neg() {
         msg="$1"
