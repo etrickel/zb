@@ -39,6 +39,9 @@ function on_exit() {
 trap on_exit EXIT
 
 function standardExec(){
+    
+    [ ! -f /tmp/INPUT ] && touch /tmp/INPUT
+
     ./main.bin "$@" > /tmp/OUTPUT < /tmp/INPUT 2>> DEBUG
 }
 
@@ -70,7 +73,7 @@ function testoutputSimple(){
 # shows the input and output from the target program 
 function showOutput() {
 
-	if [[ -f /tmp/INPUT ]]; then
+	if [[ -f /tmp/INPUT ]] && (( $(stat -c%s "/tmp/INPUT") > 1 )); then
         printf "\033[38;5;13m>>>>>>>>>>>>>>>>>> standard input \033[0m\n" >> DEBUG
 	    cat /tmp/INPUT >> DEBUG
         printf "\033[38;5;13m^^^^^^^^^^^^^^^^ END standard input ^^^^^^^^^^^^^^^^\033[0m\n" >> DEBUG
