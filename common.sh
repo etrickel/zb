@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-rm -f RESULT DEBUG STDERR output.txt raw_output.txt
+rm -f RESULT DEBUG STDERR /tmp/OUTPUT output.txt raw_output.txt
 [ -d obj ] && rm -f obj/*
 testcase=$1
 if [[ -z "$testcase" ]]; then
