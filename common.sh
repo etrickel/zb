@@ -60,7 +60,7 @@ function testoutputSimple(){
     fi 
 
     while IFS=" " read -r line; do
-        if cat ${output_fn} | tr -d " " | grep ${grep_opts} "${line// /}" >> DEBUG 2>&1 ; then
+        if cat ${output_fn} | tr -d " " | grep ${grep_opts} "${line// /}" >> /dev/null 2>&1 ; then
             continue
         else
             log_neg "\t\033[38;5;3mMISSING '${line}' in output. \033[0m \n"    >> DEBUG
@@ -71,7 +71,7 @@ function testoutputSimple(){
     
     echo "p" > RESULT 
     log_pos "PASSED, found all expected output"
-    
+
     return 0 ## BASH is fun, this is True
 }
 
