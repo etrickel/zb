@@ -40,7 +40,7 @@ trap on_exit EXIT
 
 function standardExec(){
     
-    [ ! -f /tmp/INPUT ] && touch /tmp/INPUT
+    [ -f /tmp/INPUT ] || touch /tmp/INPUT
 
     ./main.bin "$@" > /tmp/OUTPUT < /tmp/INPUT 2>> DEBUG
 }
