@@ -74,13 +74,12 @@ function testoutputSimple(){
 function showOutput() {
 
 	if [[ -f /tmp/INPUT ]] && (( $(stat -c%s "/tmp/INPUT") > 1 )); then
-        printf "\033[38;5;13m>>>>>>>>>>>>>>>>>> standard input \033[0m\n" >> DEBUG
+        printf "\033[38;5;13m>>>>>>>>>>>>>>>>>> standard INPUT \033[0m\n" >> DEBUG
 	    cat /tmp/INPUT >> DEBUG
         printf "\033[38;5;13m^^^^^^^^^^^^^^^^ END standard input ^^^^^^^^^^^^^^^^\033[0m\n" >> DEBUG
 	fi
 	if [[ -f /tmp/OUTPUT ]]; then
-        printf "\033[38;5;13m<<<<<<<<<<<<<<<<<< standard input \033[0m\n" >> DEBUG
-        ls -la /tmp/ >> DEBUG 
+        printf "\033[38;5;13m<<<<<<<<<<<<<<<<<< standard OUPUT \033[0m\n" >> DEBUG
         cat /tmp/OUTPUT >> DEBUG
         printf "\033[38;5;13m^^^^^^^^^^^^^^^^ END standard output ^^^^^^^^^^^^^^^^\033[0m\n" >> DEBUG
     fi 
@@ -88,9 +87,8 @@ function showOutput() {
 
 function compile(){
 
-    rm -f a.out mud.bin
-    binary_fn="./mud.bin"
-
+    rm -f a.out mud.bin main.bin /tmp/main.bin /tmp/mud.bin /tmp/a.out
+    
     foundcpp=false
     if [[ -f Makefile ]]; then 
         make    >> DEBUG 2>&1
