@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-rm -f RESULT DEBUG STDERR /tmp/OUTPUT output.txt raw_output.txt
+rm -f DEBUG STDERR /tmp/OUTPUT output.txt raw_output.txt
+echo "np" > RESULT 
 [ -d obj ] && rm -f obj/*
 testcase=$1
 if [[ -z "$testcase" ]]; then
@@ -63,10 +64,14 @@ function testoutputSimple(){
             continue
         else
             log_neg "\t\033[38;5;3mMISSING '${line}' in output. \033[0m \n"    >> DEBUG
+            echo "np" > RESULT 
             exit 109
         fi
     done <<< $EXPECTED
-
+    
+    echo "p" > RESULT 
+    log_pos "PASSED, found all expected output"
+    
     return 0 ## BASH is fun, this is True
 }
 
