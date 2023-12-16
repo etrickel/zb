@@ -49,12 +49,14 @@ function standardExec(){
 function testoutputSimple(){
     EXPECTED="$1"
     grep_opts="$2"
-    if [[ -z "$3" ]]; then 
-        output_fn="/tmp/OUTPUT"
+    output_fn="/tmp/OUTPUT"
+    if [[ -n "$3" ]]; then 
+        echo "Setting output_fn to NON STANDARD /tmp/OUTPUT, $3" >> DEBUG
+        output_fn=$3
     fi 
 
     while IFS=" " read -r line; do
-        if cat $output_fn | tr -d " " | grep ${grep_opts} "${line// /}" > /dev/null ; then
+        if cat ${output_fn} | tr -d " " | grep ${grep_opts} "${line// /}" >> DEBUG 2>&1 ; then
             continue
         else
             log_neg "\t\033[38;5;3mMISSING '${line}' in output. \033[0m \n"    >> DEBUG
