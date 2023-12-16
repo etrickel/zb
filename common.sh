@@ -63,6 +63,9 @@ function testoutputSimple(){
         if cat ${output_fn} | tr -d " " | grep ${grep_opts} "${line// /}" >> /dev/null 2>&1 ; then
             continue
         else
+            if [[ -f /tmp/COMP_EXPECTED ]] && [[ -f /tmp/COMP_STUDENT ]]; then
+                icdiff /tmp/COMP_EXPECTED /tmp/COMP_STUDENT
+            fi 
             log_neg "\t\033[38;5;3mMISSING '${line}' in output. \033[0m \n"    >> DEBUG
             echo "np" > RESULT 
             exit 109
