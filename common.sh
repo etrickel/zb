@@ -75,7 +75,7 @@ function showOutput() {
 	fi
 	if [[ -f /tmp/OUTPUT ]]; then
         printf "\033[38;5;13m<<<<<<<<<<<<<<<<<< standard input \033[0m\n" >> DEBUG
-        cat /tmp/OUTPUT.txt >> DEBUG
+        cat /tmp/OUTPUT >> DEBUG
         printf "\033[38;5;13m^^^^^^^^^^^^^^^^ END standard output ^^^^^^^^^^^^^^^^\033[0m\n" >> DEBUG
     fi 
 }
