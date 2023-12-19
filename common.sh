@@ -60,7 +60,7 @@ function testoutputSimple(){
     fi 
 
     while IFS=" " read -r line; do
-        if cat ${output_fn} | tr -d " " | grep ${grep_opts} "${line// /}" >> /dev/null 2>&1 ; then
+        if cat ${output_fn} | tr -d " " | grep -i ${grep_opts} "${line// /}" >> /dev/null 2>&1 ; then
             continue
         else
             if [[ -f /tmp/COMP_EXPECTED ]] && [[ -f /tmp/COMP_STUDENT ]]; then
