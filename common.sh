@@ -99,6 +99,9 @@ function compile(){
     
     foundcpp=false
     if [[ -f Makefile ]]; then 
+        if [[ -n "$1" ]] && [[ "$1" == "clean" ]]; then 
+            make clean 
+        fi 
         make    >> DEBUG 2>&1
     else 
         if [[ -f maze.h ]]; then 

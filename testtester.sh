@@ -16,9 +16,14 @@ if [ -z "$testPositive" ]; then
     testPositive="true"
 fi 
 
-rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/PASSEDOUT main.bin
-[ -f modelMain.c ] && cp modelMain.c main.c
-[ -f model/main.c ] && cp model/main.c main.c
+if [ -n "$testMyself" ]; then 
+    testPositive="true"
+    printf "\033[38;5;9mUSING LEARNER'S TESTCASE TO TEST LEARNER'S CODE\033[0m\n" >> DEBUG 
+else
+    rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/PASSEDOUT main.bin
+    [ -f modelMain.c ] && cp modelMain.c main.c
+    [ -f model/main.c ] && cp model/main.c main.c
+fi 
 
 # Function to be called upon exit
 function on_exit() {
