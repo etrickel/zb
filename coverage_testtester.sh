@@ -5,11 +5,7 @@ if [ -z "$testcase" ]; then
     printf "\033[38;5;9mUSING DEFAULT VALUE FOR TESTCASE of 1\033[0m\n" >> DEBUG 
     testcase=1
 fi 
-if [ -z "$testFileName" ]; then
-    printf "\033[38;5;9mMissing testFileName for the target of the coverage test, maybe try main.c?\033[0m\n" >> DEBUG 
-    echo "np" > RESULT
-    exit 99
-fi 
+
 
 # Function to be called upon exit
 function on_exit() {
@@ -26,6 +22,13 @@ function on_exit() {
 
 # Trap the exit signal to call on_exit function
 trap on_exit EXIT
+
+if [ -z "$testFileName" ]; then
+    printf "\033[38;5;9mMissing testFileName for the target of the coverage test, maybe try main.c?\033[0m\n" >> DEBUG 
+    echo "np" > RESULT
+    exit 99
+fi 
+
 
 echo "Testing code coverage" >> DEBUG 
 
