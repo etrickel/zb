@@ -73,11 +73,63 @@ function testoutputSimple(){
     done <<< $EXPECTED
     
     echo "p" > RESULT 
-    log_pos "PASSED, found all expected output"
+    log_pos "PASSED, found expected output"
 
     return 0 ## BASH is fun, this is True
 }
 
+# tests whether the output has the expected values in 
+# it automatically removes all spaces when testing but shows missing portion 
+# with spaces
+# default output location is /tmp/OUTPUT
+function testInputOutputv2(){
+    local EXPECTED="$1"
+    shift
+    local grep_opts=""
+    local output_fn="/tmp/OUTPUT"
+    local print_expected=0
+    while (( "$#" )); do
+        arg="$1"
+        if [[ $arg == "-grepopts" ]]; then
+            shift
+            grep_opts="$1"
+        fi
+        if [[ $arg == "-output" ]]; then
+            shift
+            echo "Setting output_fn to NON STANDARD /tmp/OUTPUT, $2" >> DEBUG
+            output_fn="$1"
+        fi
+        if [[ $arg == "-print" ]]; then
+            print_expected=1  # Set print flag to true (1) if '-print' is found
+        fi
+        # Other processing can be added here
+
+        shift  # Shift off the processed argument
+    done
+    
+
+    while IFS=" " read -r line; do
+        if cat ${output_fn} | tr -d " " | grep -i ${grep_opts} "${line// /}" >> /dev/null 2>&1 ; then
+            continue
+        else
+            if [[ -f /tmp/COMP_EXPECTED ]] && [[ -f /tmp/COMP_STUDENT ]]; then
+                icdiff /tmp/COMP_EXPECTED /tmp/COMP_STUDENT
+            fi 
+            log_neg "\t\033[38;5;3mMISSING '${line}' in output. \033[0m \n"    >> DEBUG
+            echo "np" > RESULT 
+            exit 109
+        fi
+    done <<< $EXPECTED
+    
+    echo "p" > RESULT 
+    if [[ $print_expected -eq 1 ]];then 
+        log_pos "PASSED, in output found '$EXPECTED' "
+    else
+        log_pos "PASSED, found expected output"
+    fi 
+
+    return 0 ## BASH is fun, this is True
+}
 # shows the input and output from the target program 
 function showOutput() {
 

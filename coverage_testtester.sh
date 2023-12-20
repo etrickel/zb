@@ -40,7 +40,7 @@ retcode=$?
 
 if (( retcode != 0 )); then
     echo "gcov failed run successfully, it returned $retcode" >> DEBUG 
-    echo "------ output from gcov was ------ "  >> DEBUG 
+    echo "%%%%%%%%%%%% output from gcov was %%%%%%%%%%%%%%"  >> DEBUG 
     cat /tmp/gcovout >> DEBUG 
     echo "np"
     exit 1
@@ -52,7 +52,7 @@ if (( percentCC == 100 )); then
     echo "PASSED. 100% code coverage found."
     echo "p" > RESULT
 else
-    echo "Failed to pass, did not achive 100% code coverage, instead only reached $percentCC%" >> DEBUG 
+    printf "\033[38;5;11mFailed to pass, did not achive 100% code coverage, instead only reached $percentCC% \n\033[0m" >> DEBUG 
     echo "np" > RESULT 
 fi 
 
