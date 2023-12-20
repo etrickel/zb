@@ -49,6 +49,12 @@ if grep -q "REPLACE_ME" test?.sh; then
     exit 1
 fi 
 
+if [[ "${testCoverage,,}" == "true" ]]; then 
+    CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT
+    
+    gcov ${testCoverageFile}
+
+fi 
 
 if [[ "${testPositive,,}" == "true" ]]; then 
     echo "testing positive test" 

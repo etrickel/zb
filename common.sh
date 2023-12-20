@@ -130,6 +130,7 @@ function testInputOutputv2(){
 
     return 0 ## BASH is fun, this is True
 }
+
 # shows the input and output from the target program 
 function showOutput() {
 
