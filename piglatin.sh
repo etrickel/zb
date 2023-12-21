@@ -103,6 +103,8 @@ function checkSentenceRequirements(){
 function checkExpected(){   
     local concount=3
     local check_vowel=0
+    local tester=$1
+    shift 
     while (( "$#" )); do
         arg="$1"        
         if [[ $arg == "-concount" ]]; then
@@ -116,10 +118,9 @@ function checkExpected(){
 
         shift  # Shift off the processed argument
     done
-
-    tester=$1
+    
     # is punctuation in middle
-    if grep "EXPECTED_OUTPUT=" $tester | grep -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
+    if grep "EXPECTED_OUTPUT=" $tester | -q grep -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
         echo "Test fails because the EXPECTED_OUTPUT in the test script is testing for punctuation in the middle of the variable." >> DEBUG 
         echo "This challenge requires the punctuation to be in the correct place"
         echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
