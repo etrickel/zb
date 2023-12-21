@@ -91,6 +91,7 @@ function checkLastOfSentence(){
 function checkSentenceRequirements(){
     
     wordcnt=$(cat /tmp/INPUT | tr -d "\n" | tr " " "\n"| wc -l)
+    wordcnt=$(( wordcnt + 1 ))
     if (( wordcnt < 5 )); then 
         echo "Test fails because only found $wordcnt words the input sentence, which is less than the required 5 words." >> DEBUG 
         echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
