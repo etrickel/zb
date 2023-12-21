@@ -141,3 +141,26 @@ function checkExpected(){
 
 }
 
+
+function checkNumberOfWords(){
+    local expectedWordCnt=$1
+    while (( "$#" )); do
+        arg="$1"        
+        if [[ $arg == "-cnt" ]] ; then
+            shift 
+            expectedWordCnt=$1
+        fi
+        # Other processing can be added here
+
+        shift  # Shift off the processed argument
+    done
+    wordcnt=$(cat /tmp/INPUT | tr -d "\n" | tr " " "\n"| wc -l)
+    wordcnt=$(( wordcnt + 1 ))
+    if (( wordcnt < $expectedWordCnt )); then 
+        echo "Test fails because only found $wordcnt words are in the input, which is less than the required $expectedWordCnt words." >> DEBUG 
+        echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
+        cat /tmp/INPUT >> DEBUG 
+        echo "np" > RESULT 
+        exit 44
+    fi 
+}
