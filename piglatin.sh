@@ -154,6 +154,7 @@ function checkNumberOfWords(){
 
         shift  # Shift off the processed argument
     done
+    
     wordcnt=$(cat /tmp/INPUT | tr -d "\n" | tr " " "\n"| wc -l)
     wordcnt=$(( wordcnt + 1 ))
     if (( wordcnt < $expectedWordCnt )); then 
