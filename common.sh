@@ -104,7 +104,7 @@ function testInputOutputv2(){
             print_expected=1  # Set print flag to true (1) if '-print' is found
         fi
         if [[ $arg == "-icdiff" ]]; then
-            print_expected=1  # Set print flag to true (1) if '-print' is found
+            icdiff=1  # Set print flag to true (1) if '-print' is found
         fi
         # Other processing can be added here
 
