@@ -91,7 +91,7 @@ function checkLastOfSentence(){
 function checkSentenceRequirements(){
     
     wordcnt=$(cat /tmp/INPUT | tr -d "\n" | tr " " "\n"| wc -l)
-    if (( wordcnt < 6 )); then 
+    if (( wordcnt < 5 )); then 
         echo "Test fails because the input sentence did not have at least 5 words." >> DEBUG 
         echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
         cat /tmp/INPUT >> DEBUG 
@@ -107,7 +107,7 @@ function checkExpected(){
     shift 
     while (( "$#" )); do
         arg="$1"        
-        if [[ $arg == "-concount" ]]; then
+        if [[ $arg == "-concount" ]] || [[ $arg == "-consonants" ]]; then
             shift 
             concount=$1
         fi
