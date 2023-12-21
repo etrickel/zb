@@ -102,15 +102,13 @@ function checkSentenceRequirements(){
 }
 
 function checkExpected(){   
-    local concount=3
-    local check_vowel=0
+    local middle=0
     local tester=$1
     shift 
     while (( "$#" )); do
         arg="$1"        
-        if [[ $arg == "-concount" ]] || [[ $arg == "-consonants" ]]; then
-            shift 
-            concount=$1
+        if [[ $arg == "-middle" ]] ; then
+            middle=1
         fi
         if [[ $arg == "-vowel" ]]; then
           check_vowel=1
@@ -120,14 +118,24 @@ function checkExpected(){
         shift  # Shift off the processed argument
     done
     
-    # is punctuation in middle
-    if grep "EXPECTED_OUTPUT=" $tester | grep -q -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
-        echo "Test fails because the EXPECTED_OUTPUT in the test script is testing for punctuation in the middle of the variable." >> DEBUG 
-        echo "This challenge requires the punctuation to be in the correct place"
-        echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
-        cat /tmp/INPUT >> DEBUG 
-        echo "np" > RESULT 
-        exit 33
+    if (( middle == 1 )); then  
+        if ! grep "EXPECTED_OUTPUT=" $tester | grep -q -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then # we want it in the middle of at least one
+            echo "Test fails because the EXPECTED_OUTPUT in the test script does not have any punctuation." >> DEBUG 
+            echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
+            cat /tmp/INPUT >> DEBUG 
+            echo "np" > RESULT 
+            exit 33
+        fi    
+    else 
+        # if punctuation is in middle, then throw error 
+        if grep "EXPECTED_OUTPUT=" $tester | grep -q -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
+            echo "Test fails because the EXPECTED_OUTPUT in the test script is testing for punctuation in the middle of the variable." >> DEBUG 
+            echo "This challenge requires the punctuation to be in the correct place"
+            echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
+            cat /tmp/INPUT >> DEBUG 
+            echo "np" > RESULT 
+            exit 33
+        fi 
     fi 
 
 
