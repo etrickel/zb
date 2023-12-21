@@ -88,6 +88,7 @@ function testInputOutputv2(){
     local grep_opts=""
     local output_fn="/tmp/OUTPUT"
     local print_expected=0
+    local icdiff=0
     while (( "$#" )); do
         arg="$1"
         if [[ $arg == "-grepopts" ]]; then
@@ -100,6 +101,9 @@ function testInputOutputv2(){
             output_fn="$1"
         fi
         if [[ $arg == "-print" ]]; then
+            print_expected=1  # Set print flag to true (1) if '-print' is found
+        fi
+        if [[ $arg == "-icdiff" ]]; then
             print_expected=1  # Set print flag to true (1) if '-print' is found
         fi
         # Other processing can be added here
@@ -116,6 +120,16 @@ function testInputOutputv2(){
                 icdiff /tmp/COMP_EXPECTED /tmp/COMP_STUDENT
             fi 
             log_neg "\t\033[38;5;3mMISSING '${line}' in output. \033[0m \n"    >> DEBUG
+            if [[ $icdiff -eq 1 ]]; then
+                if [[ ! -f /tmp/COMP_STUDENT ]]; then 
+                    cp /tmp/OUTPUT /tmp/COMP_STUDENT
+                fi 
+                if [[ ! -f /tmp/COMP_EXPECTED ]] ; then
+                    echo $EXPECTED > /tmp/COMP_EXPECTED
+                fi     
+                icdiff /tmp/COMP_EXPECTED /tmp/OUTPUT
+                
+            fi 
             echo "np" > RESULT 
             exit 109
         fi
