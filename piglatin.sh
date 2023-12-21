@@ -120,7 +120,7 @@ function checkExpected(){
     done
     
     # is punctuation in middle
-    if grep "EXPECTED_OUTPUT=" $tester | -q grep -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
+    if grep "EXPECTED_OUTPUT=" $tester | grep -q -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
         echo "Test fails because the EXPECTED_OUTPUT in the test script is testing for punctuation in the middle of the variable." >> DEBUG 
         echo "This challenge requires the punctuation to be in the correct place"
         echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
