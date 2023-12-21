@@ -127,7 +127,7 @@ function testInputOutputv2(){
                 if [[ ! -f /tmp/COMP_EXPECTED ]] ; then
                     echo $EXPECTED > /tmp/COMP_EXPECTED
                 fi     
-                icdiff /tmp/COMP_EXPECTED /tmp/OUTPUT
+                icdiff /tmp/COMP_EXPECTED /tmp/OUTPUT >> DEBUG
                 
             fi 
             echo "np" > RESULT 
