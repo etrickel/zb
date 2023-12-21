@@ -119,7 +119,7 @@ function checkExpected(){
 
     tester=$1
     # is punctuation in middle
-    if grep "EXPECTED_OUTPUT=" level-05/06.piglatin4_punct_n_cap/model/test1.sh | grep -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
+    if grep "EXPECTED_OUTPUT=" $tester | grep -E '[a-zA-Z0-9]+[.,!?][a-zA-Z0-9]+'; then
         echo "Test fails because the EXPECTED_OUTPUT in the test script is testing for punctuation in the middle of the variable." >> DEBUG 
         echo "This challenge requires the punctuation to be in the correct place"
         echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
