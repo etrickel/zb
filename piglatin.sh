@@ -92,7 +92,7 @@ function checkSentenceRequirements(){
     
     wordcnt=$(cat /tmp/INPUT | tr -d "\n" | tr " " "\n"| wc -l)
     if (( wordcnt < 5 )); then 
-        echo "Test fails because the input sentence did not have at least 5 words." >> DEBUG 
+        echo "Test fails because only found $wordcnt words the input sentence, which is less than the required 5 words." >> DEBUG 
         echo "vvvvvvvv INPUT vvvvvvvv" >> DEBUG 
         cat /tmp/INPUT >> DEBUG 
         echo "np" > RESULT 
