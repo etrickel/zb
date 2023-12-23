@@ -163,7 +163,7 @@ function showOutput() {
 function compile(){
 
     rm -f a.out mud.bin main.bin /tmp/main.bin /tmp/mud.bin /tmp/a.out
-    
+    echo "CFLAGS COMPILE =$CFLAGS"
     foundcpp=false
     if [[ -f Makefile ]]; then 
         if [[ -n "$1" ]] && [[ "$1" == "clean" ]]; then 
