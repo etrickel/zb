@@ -48,7 +48,13 @@ if [[ -n "$testName" ]]; then
     
     echo "Testing Unit Test #${testcase} Expecting Test to Pass = ${testPositive}" >> DEBUG 
 
-    export CFLAGS="-DBROKEN_VERSION_${testcase}"
+    if [[ "$testPositive" == "true" ]]; then
+        export CFLAGS=""
+        EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
+    else
+        export CFLAGS="-DBROKEN_VERSION_${testcase}"
+        EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
+    fi 
 
     make clean 
     
@@ -56,11 +62,6 @@ if [[ -n "$testName" ]]; then
     
     ./test.bin ${testName} > /tmp/OUTPUT 2>&1
 
-    if [[ "$testPositive" == "true" ]]; then
-        EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
-    else
-        EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
-    fi 
 
     testoutputSimple "$EXPECTED_OUTPUT" " -E "
 
