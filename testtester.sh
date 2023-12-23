@@ -28,7 +28,7 @@ fi
 
 # Function to be called upon exit
 function on_exit() {
-    echo "---------- Test Output ----------" >> DEBUG 
+    echo "########## Test Output ##########" >> DEBUG 
     [ -f /tmp/PASSEDOUT ] && cat /tmp/PASSEDOUT >> DEBUG 
     [ -f /tmp/FAILEDOUT ] && cat /tmp/FAILEDOUT >> DEBUG 
     
