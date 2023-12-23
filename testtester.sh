@@ -57,6 +57,7 @@ if [[ -n "$testName" ]]; then
         EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
         EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
     fi 
+    echo "testcase=${testcase}"
     echo "CFLAGS=$CFLAGS"
     make clean 
     
