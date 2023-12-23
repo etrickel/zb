@@ -56,9 +56,9 @@ if [[ -n "$testName" ]]; then
     ./test.bin ${testName} > /tmp/OUTPUT 2>&1
 
     if [[ "$testPositive" == "true" ]]; then
-        EXPECTED_OUTPUT="Test PASSED.*${testName}"
+        EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
     else
-        EXPECTED_OUTPUT="Test Failed.*${testName}"
+        EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
     fi 
 
     testoutputSimple "$EXPECTED_OUTPUT" " -E "
