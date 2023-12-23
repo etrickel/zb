@@ -1,4 +1,6 @@
 
+rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/PASSEDOUT main.bin
+
 if [ -n "$1" ]; then 
     testcase=$1
 fi
@@ -19,8 +21,7 @@ fi
 if [ -n "$testMyself" ]; then 
     testPositive="true"
     printf "\033[38;5;9mUSING LEARNER'S TESTCASE TO TEST LEARNER'S CODE\033[0m\n" >> DEBUG 
-else
-    rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/PASSEDOUT main.bin
+else    
     [ -f modelMain.c ] && cp modelMain.c main.c
     [ -f model/main.c ] && cp model/main.c main.c
 fi 
