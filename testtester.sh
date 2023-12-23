@@ -31,7 +31,8 @@ function on_exit() {
     echo "########## Test Output ##########" >> DEBUG 
     [ -f /tmp/PASSEDOUT ] && cat /tmp/PASSEDOUT >> DEBUG 
     [ -f /tmp/FAILEDOUT ] && cat /tmp/FAILEDOUT >> DEBUG 
-    
+    [ -f /tmp/OUTPUT ] && cat /tmp/OUTPUT >> DEBUG 
+        
     if [[ -f "/usercode/coding_rooms_unit_tests.sh" ]]; then
       echo "DONE" >> DEBUG
     else
