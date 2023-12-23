@@ -41,13 +41,13 @@ function on_exit() {
 # Trap the exit signal to call on_exit function
 trap on_exit EXIT
 
-echo "Testing #${testcase} testing Working = ${testPositive}" >> DEBUG 
-
-
 if [[ -n "$testName" ]]; then
     # test unit test in test.c and test.bin
+    
+    echo "Testing Unit Test #${testcase} Expecting Test to Pass = ${testPositive}" >> DEBUG 
+
     export CFLAGS="-DBROKEN_VERSION_${testcase}"
-        
+
     make clean 
     
     compile 
@@ -61,9 +61,12 @@ if [[ -n "$testName" ]]; then
     fi 
 
     testoutputSimple "$EXPECTED_OUTPUT" " -E "
-    
+
 else 
     # test bash script test case created by learner
+    
+    echo "Testing Base Test #${testcase} Expecting Test to Pass = ${testPositive}" >> DEBUG 
+
     if grep -q "REPLACE_ME" test?.sh; then 
         echo "The test1.sh and test2.sh must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG 
         echo "np" > RESULT
