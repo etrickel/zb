@@ -3,10 +3,7 @@
 rm -f DEBUG STDERR /tmp/OUTPUT output.txt raw_output.txt /tmp/COMP_EXPECTED /tmp/COMP_STUDENT
 echo "np" > RESULT 
 [ -d obj ] && rm -f obj/*
-testcase=$1
-if [[ -z "$testcase" ]]; then
-    testcase=1
-fi
+
 if [[ -z "$showdebug" ]]; then 
         showdebug=0
 fi
