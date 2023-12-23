@@ -43,43 +43,61 @@ trap on_exit EXIT
 
 echo "Testing #${testcase} testing Working = ${testPositive}" >> DEBUG 
 
-if grep -q "REPLACE_ME" test?.sh; then 
-    echo "The test1.sh and test2.sh must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG 
-    echo "np" > RESULT
-    exit 1
-fi 
 
-if [[ "${testCoverage,,}" == "true" ]]; then 
-    CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT
+if [[ -n "$testName" ]]; then
+    # test unit test in test.c and test.bin
+    export CFLAGS="-DBROKEN_VERSION_${testcase}"
+        
+    make clean 
     
-    gcov ${testCoverageFile}
-
-fi 
-
-if [[ "${testPositive,,}" == "true" ]]; then 
-    echo "testing positive test" 
-    CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT
-
-    if grep -i -q -E "(Pass.*Test|Test.*Pass)" /tmp/PASSEDOUT ; then
-        echo 'p' > RESULT
-        printf "\033[38;5;10mPASSED b/c test passed for working model version\033[0m\n" >> DEBUG
+    compile 
+    
+    ./test.bin ${testName} > /tmp/OUTPUT 2>&1
+    if [[ "$testPositive" == "true"]]; then
+        EXPECTED_OUTPUT="Test PASSED.*${testName}"
     else
-        printf "\033[38;5;1mFAILED test of test${testcase}.sh, the test script should have passed this program with 'Passed Test'\033[0m\n" >> DEBUG 
+        EXPECTED_OUTPUT="Test Failed.*${testName}"
+    fi 
+    testoutputSimple "$EXPECTED_OUTPUT" " -E "
+else 
+    # test bash script test case created by learner
+    if grep -q "REPLACE_ME" test?.sh; then 
+        echo "The test1.sh and test2.sh must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG 
         echo "np" > RESULT
         exit 1
     fi 
 
-else # test failing program to fail test case
+    if [[ "${testCoverage,,}" == "true" ]]; then 
+        CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT
+        
+        gcov ${testCoverageFile}
 
-    CFLAGS="-DBROKEN_VERSION_${testcase}" bash test${testcase}.sh > /tmp/FAILEDOUT
-    
-    if grep -i -q -E "(Fail.*Test|Test.*Fail)" /tmp/FAILEDOUT ; then
-        echo 'p' > RESULT
-        printf "\033[38;5;10mPASSED b/c test failed for broken test\033[0m\n"  >> DEBUG
-    else
-        printf "\033[38;5;1mFAILED test of test${testcase}.sh, the test script should have failed this program with 'Failed Test'\033[0m\n"  >> DEBUG         
-        echo "np" > RESULT
-        exit 1
     fi 
+    if [[ "${testPositive,,}" == "true" ]]; then 
+        echo "testing positive test" 
+        CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT
 
+        if grep -i -q -E "(Pass.*Test|Test.*Pass)" /tmp/PASSEDOUT ; then
+            echo 'p' > RESULT
+            printf "\033[38;5;10mPASSED b/c test passed for working model version\033[0m\n" >> DEBUG
+        else
+            printf "\033[38;5;1mFAILED test of test${testcase}.sh, the test script should have passed this program with 'Passed Test'\033[0m\n" >> DEBUG 
+            echo "np" > RESULT
+            exit 1
+        fi 
+
+    else # test failing program to fail test case
+
+        CFLAGS="-DBROKEN_VERSION_${testcase}" bash test${testcase}.sh > /tmp/FAILEDOUT
+        
+        if grep -i -q -E "(Fail.*Test|Test.*Fail)" /tmp/FAILEDOUT ; then
+            echo 'p' > RESULT
+            printf "\033[38;5;10mPASSED b/c test failed for broken test\033[0m\n"  >> DEBUG
+        else
+            printf "\033[38;5;1mFAILED test of test${testcase}.sh, the test script should have failed this program with 'Failed Test'\033[0m\n"  >> DEBUG         
+            echo "np" > RESULT
+            exit 1
+        fi 
+
+    fi 
 fi 
