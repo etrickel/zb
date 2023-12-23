@@ -1,5 +1,5 @@
 
-rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/PASSEDOUT main.bin
+rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/FAILEDOUT main.bin
 
 if [ -n "$1" ]; then 
     testcase=$1
