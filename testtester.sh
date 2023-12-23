@@ -1,7 +1,8 @@
 
 rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/FAILEDOUT main.bin
-
+echo $testcase
 if [ -n "$1" ]; then 
+    printf "\033[38;5;9mUSING PARAMETER VALUE FOR TESTCASE of 1\033[0m\n" >> DEBUG 
     testcase=$1
 fi
 
