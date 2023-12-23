@@ -51,9 +51,11 @@ if [[ -n "$testName" ]]; then
     if [[ "$testPositive" == "true" ]]; then
         export CFLAGS=""
         EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
+        EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
     else
         export CFLAGS="-DBROKEN_VERSION_${testcase}"
         EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
+        EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
     fi 
 
     make clean 
