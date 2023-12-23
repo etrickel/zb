@@ -53,12 +53,15 @@ if [[ -n "$testName" ]]; then
     compile 
     
     ./test.bin ${testName} > /tmp/OUTPUT 2>&1
-    if [[ "$testPositive" == "true"]]; then
+
+    if [[ "$testPositive" == "true" ]]; then
         EXPECTED_OUTPUT="Test PASSED.*${testName}"
     else
         EXPECTED_OUTPUT="Test Failed.*${testName}"
     fi 
+
     testoutputSimple "$EXPECTED_OUTPUT" " -E "
+    
 else 
     # test bash script test case created by learner
     if grep -q "REPLACE_ME" test?.sh; then 
