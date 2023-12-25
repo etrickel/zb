@@ -101,6 +101,7 @@ else
         if [[ -z "$defnumber" ]]; then
             defnumber=${testcase}
         fi 
+        echo "my def number = $defnumber" >> DEBUG 
         CFLAGS="-DBROKEN_VERSION_${defnumber}" bash test${testcase}.sh > /tmp/FAILEDOUT
         
         if grep -i -q -E "(Fail.*Test|Test.*Fail)" /tmp/FAILEDOUT ; then
