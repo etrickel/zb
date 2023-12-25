@@ -101,7 +101,7 @@ else
         if [[ -z "$defnumber" ]]; then
             defnumber=${testcase}
         fi 
-        CFLAGS="-DBROKEN_VERSION_${testcase}" bash test${defnumber}.sh > /tmp/FAILEDOUT
+        CFLAGS="-DBROKEN_VERSION_${defnumber}" bash test${testcase}.sh > /tmp/FAILEDOUT
         
         if grep -i -q -E "(Fail.*Test|Test.*Fail)" /tmp/FAILEDOUT ; then
             echo 'p' > RESULT
