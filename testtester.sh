@@ -1,6 +1,5 @@
 
 rm -f RESULT DEBUG /tmp/PASSEDOUT /tmp/FAILEDOUT main.bin
-echo $testcase
 if [ -n "$1" ]; then 
     printf "\033[38;5;9mUSING PARAMETER VALUE FOR TESTCASE of 1\033[0m\n" >> DEBUG 
     testcase=$1
@@ -48,18 +47,17 @@ if [[ -n "$testName" ]]; then
     # test unit test in test.c and test.bin
     
     echo "Testing Unit Test #${testcase} Expecting Test to Pass = ${testPositive}" >> DEBUG 
-
+    
     if [[ "$testPositive" == "true" ]]; then
         export CFLAGS=""
         EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
         EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
     else
-        export CFLAGS="-DBROKEN_VERSION_${testcase}"
+        export CFLAGS="-DBROKEN_VERSION_${testcase}"        
         EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
         EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
     fi 
-    echo "testcase=${testcase}"
-    echo "CFLAGS=$CFLAGS"
+    
     make clean 
     
     compile 
@@ -100,8 +98,10 @@ else
         fi 
 
     else # test failing program to fail test case
-
-        CFLAGS="-DBROKEN_VERSION_${testcase}" bash test${testcase}.sh > /tmp/FAILEDOUT
+        if [[ -z "$defnumber"]]; then
+            defnumber=${testcase}
+        fi 
+        CFLAGS="-DBROKEN_VERSION_${testcase}" bash test${defnumber}.sh > /tmp/FAILEDOUT
         
         if grep -i -q -E "(Fail.*Test|Test.*Fail)" /tmp/FAILEDOUT ; then
             echo 'p' > RESULT
