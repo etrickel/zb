@@ -98,7 +98,7 @@ else
         fi 
 
     else # test failing program to fail test case
-        if [[ -z "$defnumber"]]; then
+        if [[ -z "$defnumber" ]]; then
             defnumber=${testcase}
         fi 
         CFLAGS="-DBROKEN_VERSION_${testcase}" bash test${defnumber}.sh > /tmp/FAILEDOUT
