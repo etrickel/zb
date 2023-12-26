@@ -146,18 +146,18 @@ function testInputOutputv2(){
 function showOutput() {
     # doing this so that error messages and such will be at bottom instead of above output
     mv DEBUG /tmp/TMP_DEBUG
-	
-	if [[ -f /tmp/OUTPUT ]]; then
-        printf "\033[38;5;13m<<<<<<<<<<<<<<<<<< standard OUPUT \033[0m\n" >> DEBUG
-        cat /tmp/OUTPUT >> DEBUG
-        printf "\033[38;5;13m^^^^^^^^^^^^^^^^ END standard output ^^^^^^^^^^^^^^^^\033[0m\n" >> DEBUG
-    fi 
-    if [[ -f /tmp/INPUT ]] && (( $(stat -c%s "/tmp/INPUT") > 1 )); then
+	if [[ -f /tmp/INPUT ]] && (( $(stat -c%s "/tmp/INPUT") > 1 )); then
         
         printf "\033[38;5;13m>>>>>>>>>>>>>>>>>> standard INPUT \033[0m\n" >> DEBUG
 	    cat /tmp/INPUT >> DEBUG
         printf "\033[38;5;13m^^^^^^^^^^^^^^^^ END standard input ^^^^^^^^^^^^^^^^\033[0m\n" >> DEBUG
 	fi
+	if [[ -f /tmp/OUTPUT ]]; then
+        printf "\033[38;5;13m<<<<<<<<<<<<<<<<<< standard OUPUT \033[0m\n" >> DEBUG
+        cat /tmp/OUTPUT >> DEBUG
+        printf "\033[38;5;13m^^^^^^^^^^^^^^^^ END standard output ^^^^^^^^^^^^^^^^\033[0m\n" >> DEBUG
+    fi 
+    
     cat /tmp/TMP_DEBUG >> DEBUG 
 }
 
