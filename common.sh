@@ -211,7 +211,7 @@ get_line_number() {
     printf "" > $temp_file 
     # Write the line number for each of the first x lines
     start=$2
-    echo $start >> DEBUG 
+    
     for (( i=1; i<=$start; i++ )); do
         echo "$i" >> "$temp_file"
     done
