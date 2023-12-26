@@ -266,7 +266,7 @@ function verifyInOrder()
     if [[ -z "$line" ]]; then
         printf "\033[38;5;1mFAILED to find '${str}' in the proper order \033[0m\n" >> DEBUG 
         printf "Expected order of values are " >> DEBUG 
-        IFS=","; printf "${order[@]}" | grep --color=auto "${str}" >> DEBUG 
+        IFS=","; echo "${order[@]}"  >> DEBUG 
         exit 1
     else
         # Update the start to the line number for the next search
