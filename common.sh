@@ -267,7 +267,7 @@ function verifyInOrder()
         printf "\033[38;5;1mFAILED to find '${str}' in the proper order \033[0m\n" >> DEBUG 
         printf "Expected order of values are " >> DEBUG 
         IFS=","; printf "${order[@]}"  >> DEBUG 
-        printf("\n")
+        printf("\n") >> DEBUG 
         exit 1
     else
         # Update the start to the line number for the next search
