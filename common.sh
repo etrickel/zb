@@ -220,11 +220,11 @@ get_line_number() {
     # Append the rest of the file starting from line x+1
     tail -n +"$((start+1))" "$file" >> "$temp_file"
     
-    echo "GREP OUPUT"
-    set -x 
+    echo "GREP OUPUT" >> DEBUG 
+    
     grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" >> DEBUG 
-    set +x
-    echo "END GREP OUTPUT"
+    
+    echo "END GREP OUTPUT" >> DEBUG 
 
     local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" | cut -d: -f1)
     
