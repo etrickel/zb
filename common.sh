@@ -251,3 +251,17 @@ function verifyInOrder()
 }
 
 
+verifyCount(){
+    local expectedStr="$1"
+    local expectedCount=$2
+
+    theCount=$(grep -i "${expectedStr// /}" /tmp/SQUISHED_OUTPUT | wc -l)
+
+    if [[  $sciCnt -eq 1 ]]; then
+        echo "Found expected number of '$expectedStr' in output " >> DEBUG
+    else
+        echo "theCount=$theCount"
+        log_neg "Failed, found the wrong number of '$expectedStr' in output, found ${theCount} \033[0m\n"
+        exit 1
+    fi
+}
