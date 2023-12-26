@@ -260,19 +260,19 @@ function verifyInOrder()
     for str in "${order[@]}"; do
     # Get the line number of the first occurrence of the substring after the starting line
     
-    line=$(get_line_number "$str" "$start" "$file" "$maxline" )
+        line=$(get_line_number "$str" "$start" "$file" "$maxline" )
 
-    # Check if the substring was found
-    if [[ -z "$line" ]]; then
-        printf "\033[38;5;1mFAILED to find '${str}' in the proper order \033[0m\n" >> DEBUG 
-        printf "Expected order of values are " >> DEBUG 
-        IFS=","; printf "${order[@]}"  >> DEBUG 
-        printf "\n" >> DEBUG 
-        exit 1
-    else
-        # Update the start to the line number for the next search
-        start=$line
-    fi
+        # Check if the substring was found
+        if [[ -z "$line" ]]; then
+            printf "\033[38;5;1mFAILED to find '${str}' in the proper order \033[0m\n" >> DEBUG 
+            printf "Expected order of values are " >> DEBUG 
+            IFS=","; printf "${order[*]}"  >> DEBUG 
+            printf "\n" >> DEBUG 
+            exit 1
+        else
+            # Update the start to the line number for the next search
+            start=$line
+        fi
     done
 }
 
