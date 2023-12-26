@@ -205,18 +205,28 @@ log_neg() {
 # Drawback doesn't work too well when subsequent location is substring in prior location.
 # had "Alley at Levee" then "Levee"
 get_line_number() {
-  local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$file" | cut -d: -f1)
-  local file=$3
-  if [[ $ln -gt 300 ]]; then
-    printf "\033[38;5;14mMatch found for ${1} in output at line $ln, which is WAY too high, which means the match came from a raw print of the json file or there is too much debug code \n\033[0m" >> DEBUG 
+    temp_file="/tmp/WIP_FILE"
 
-  elif [[ $ln -gt ${2} ]]; then
-    printf "Match found for ${1} in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
-    printf "${ln}"
-  else
-  printf "Failed finding next match ${1} in output at line $ln, but need to find after ${2}\n" >> DEBUG 
-    printf ""
-  fi 
+    # Write the line number for each of the first x lines
+    for (( i=1; i<=x; i++ )); do
+        echo "$i" >> "$temp_file"
+    done
+
+    # Append the rest of the file starting from line x+1
+    tail -n +"$((x+1))" "$file" >> "$temp_file"
+
+    local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" | cut -d: -f1)
+    local file=$3
+    if [[ $ln -gt 300 ]]; then
+        printf "\033[38;5;14mMatch found for ${1} in output at line $ln, which is WAY too high, which means the match came from a raw print of the json file or there is too much debug code \n\033[0m" >> DEBUG 
+
+    elif [[ $ln -gt ${2} ]]; then
+        printf "Match found for ${1} in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
+        printf "${ln}"
+    else
+    printf "Failed finding next match ${1} in output at line $ln, but need to find after ${2}\n" >> DEBUG 
+        printf ""
+    fi 
 }
 
 # verifies that the text snippets provided as the first argument are encountered in order 
