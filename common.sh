@@ -41,6 +41,8 @@ function standardExec(){
     [ -f /tmp/INPUT ] || touch /tmp/INPUT
 
     ./main.bin "$@" > /tmp/OUTPUT < /tmp/INPUT 2>> DEBUG
+
+    cat /tmp/OUTPUT | tr -d " " > /tmp/SQUISHED_OUTPUT
 }
 
 # tests whether the output has the expected values in 
