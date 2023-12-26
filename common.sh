@@ -245,7 +245,6 @@ function verifyInOrder()
     else
         # Update the start to the line number for the next search
         start=$line
-        printf "line=$line"
     fi
     done
 }
