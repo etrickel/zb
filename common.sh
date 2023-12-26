@@ -257,7 +257,7 @@ verifyCount(){
 
     theCount=$(grep -i "${expectedStr// /}" /tmp/SQUISHED_OUTPUT | wc -l)
 
-    if [[  $sciCnt -eq 1 ]]; then
+    if [[  $theCount -eq $expectedCount ]]; then
         echo "Found expected number of '$expectedStr' in output " >> DEBUG
     else
         echo "theCount=$theCount"
