@@ -205,6 +205,7 @@ log_neg() {
 # Drawback doesn't work too well when subsequent location is substring in prior location.
 # had "Alley at Levee" then "Levee"
 get_line_number() {
+    # CAREFUL DEBUGGING: this function uses print as output so debugging messages sent to standard output will break
     temp_file="/tmp/WIP_FILE"
     
     printf "" > $temp_file 
@@ -220,12 +221,6 @@ get_line_number() {
     # Append the rest of the file starting from line x+1
     tail -n +"$((start+1))" "$file" >> "$temp_file"
     
-    echo "GREP OUPUT" >> DEBUG 
-    
-    grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" >> DEBUG 
-    cat $temp_file >> DEBUG 
-    echo "END GREP OUTPUT" >> DEBUG 
-
     local ln=$(grep -n -m 1 -E '^.{0,25}'${1} "$temp_file" | cut -d: -f1)
     
     local maxline=$4 
