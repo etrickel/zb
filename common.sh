@@ -206,7 +206,8 @@ log_neg() {
 # had "Alley at Levee" then "Levee"
 get_line_number() {
     temp_file="/tmp/WIP_FILE"
-    rm -f $temp_file 
+    
+    printf "" > $temp_file 
     # Write the line number for each of the first x lines
     start=$2
     for (( i=1; i<=$start; i++ )); do
