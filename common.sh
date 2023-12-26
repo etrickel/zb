@@ -209,12 +209,12 @@ get_line_number() {
     rm -f $temp_file 
     # Write the line number for each of the first x lines
     start=$2
-    for (( i=1; i<=$2; i++ )); do
+    for (( i=1; i<=$start; i++ )); do
         echo "$i" >> "$temp_file"
     done
 
     # Append the rest of the file starting from line x+1
-    tail -n +"$((x+1))" "$file" >> "$temp_file"
+    tail -n +"$((start+1))" "$file" >> "$temp_file"
 
     local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" | cut -d: -f1)
     local file=$3
@@ -227,7 +227,7 @@ get_line_number() {
         printf "Match found for ${1} in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
         printf "${ln}"
     else
-    printf "Failed finding next match ${1} in output at line $ln, but need to find after ${2}\n" >> DEBUG 
+        printf "Failed finding next match ${1} in output at line $ln, but need to find after ${2}\n" >> DEBUG 
         printf ""
     fi 
 }
