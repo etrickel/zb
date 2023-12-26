@@ -269,7 +269,9 @@ function verifyInOrder()
             IFS=","; printf "${order[*]}\n" > /tmp/junk
             grep -E "${str// /.}|$" /tmp/junk >> DEBUG 
             pattern=$(IFS="|"; echo "${order[*]}")
+            set -x
             grep -E --color=always "$pattern|$" /tmp/OUTPUT > /tmp/temp
+            set +x
             cp /tmp/temp /tmp/OUTPUT
     
             printf "\n" >> DEBUG 
