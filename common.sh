@@ -218,8 +218,10 @@ get_line_number() {
 
     local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" | cut -d: -f1)
     local file=$3
-    if [[ $ln -gt 300 ]]; then
-        printf "\033[38;5;14mMatch found for ${1} in output at line $ln, which is WAY too high, which means the match came from a raw print of the json file or there is too much debug code \n\033[0m" >> DEBUG 
+    local maxline=$4 
+
+    if [[ $ln -gt $maxline ]]; then
+        printf "\033[38;5;14mMatch found for ${1} in output at line $ln, which is too high, which means the match came from a raw print of the json file or there is too much debug code (maxline = $maxline) \n\033[0m" >> DEBUG 
 
     elif [[ $ln -gt ${2} ]]; then
         printf "Match found for ${1} in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
@@ -253,7 +255,7 @@ function verifyInOrder()
     for str in "${order[@]}"; do
     # Get the line number of the first occurrence of the substring after the starting line
     
-    line=$(get_line_number "$str" "$start" "$file")
+    line=$(get_line_number "$str" "$start" "$file" "$maxline" )
 
     # Check if the substring was found
     if [[ -z "$line" ]]; then
