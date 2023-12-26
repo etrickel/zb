@@ -212,22 +212,24 @@ get_line_number() {
     for (( i=1; i<=$start; i++ )); do
         echo "$i" >> "$temp_file"
     done
+    
+    local file=$3
 
     # Append the rest of the file starting from line x+1
     tail -n +"$((start+1))" "$file" >> "$temp_file"
 
     local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" | cut -d: -f1)
-    local file=$3
+    
     local maxline=$4 
 
-    if [[ $ln -gt $maxline ]]; then
+    if (( ln > maxline )); then
         printf "\033[38;5;14mMatch found for ${1} in output at line $ln, which is too high, which means the match came from a raw print of the json file or there is too much debug code (maxline = $maxline) \n\033[0m" >> DEBUG 
 
-    elif [[ $ln -gt ${2} ]]; then
+    elif (( ln > start )); then
         printf "Match found for ${1} in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
         printf "${ln}"
     else
-        printf "Failed finding next match ${1} in output at line $ln, but need to find after ${2}\n" >> DEBUG 
+        printf "Failed finding next match '${1}' in output at line $ln, but need to find after ${2}\n" >> DEBUG 
         printf ""
     fi 
 }
