@@ -268,7 +268,7 @@ function verifyInOrder()
             printf "Expected order of values are " >> DEBUG 
             IFS=","; printf "${order[*]}\n" > /tmp/junk
             set -x
-            grep -E "${str// /.}|$" /tmp/junk >> DEBUG 
+            grep --color=always -E "${str// /.}|$" /tmp/junk >> DEBUG 
             set +x
             pattern=$(IFS="|"; echo "${order[*]}")
             
