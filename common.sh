@@ -208,7 +208,8 @@ get_line_number() {
     temp_file="/tmp/WIP_FILE"
     rm -f $temp_file 
     # Write the line number for each of the first x lines
-    for (( i=1; i<=x; i++ )); do
+    start=$2
+    for (( i=1; i<=$2; i++ )); do
         echo "$i" >> "$temp_file"
     done
 
