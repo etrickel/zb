@@ -226,7 +226,7 @@ get_line_number() {
     cat $temp_file >> DEBUG 
     echo "END GREP OUTPUT" >> DEBUG 
 
-    local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" | cut -d: -f1)
+    local ln=$(grep -n -m 1 -E '^.{0,25}'${1} "$temp_file" | cut -d: -f1)
     
     local maxline=$4 
 
