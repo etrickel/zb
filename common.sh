@@ -267,6 +267,7 @@ function verifyInOrder()
             printf "\033[38;5;1mFAILED to find '${str}' in the proper order \033[0m\n" >> DEBUG 
             printf "Expected order of values are " >> DEBUG 
             IFS=","; printf "${order[*]}\n" > /tmp/junk
+            echo "'${str}'" >> DEBUG 
             cat /tmp/junk | grep "${str}" >> DEBUG 
             printf "\n" >> DEBUG 
             exit 1
