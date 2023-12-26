@@ -226,10 +226,10 @@ get_line_number() {
     local maxline=$4 
 
     if (( ln > maxline )); then
-        printf "\033[38;5;14mMatch found for ${1} in output at line $ln, which is too high, which means the match came from a raw print of the json file or there is too much debug code (maxline = $maxline) \n\033[0m" >> DEBUG 
+        printf "\033[38;5;14mMatch found for '${1}' in output at line $ln, which is too high, which means the match came from a raw print of the json file or there is too much debug code (maxline = $maxline) \n\033[0m" >> DEBUG 
 
     elif (( ln > start )); then
-        printf "Match found for ${1} in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
+        printf "Match found for '${1}' in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
         printf "${ln}"
     else
         printf "Failed finding next match '${1}' in output at line $ln, but need to find after ${2}\n" >> DEBUG 
