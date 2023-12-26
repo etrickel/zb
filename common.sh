@@ -268,7 +268,7 @@ function verifyInOrder()
             printf "Expected order of values are " >> DEBUG 
             IFS=","; printf "${order[*]}\n" > /tmp/junk
             echo "'${str}'" >> DEBUG 
-            cat /tmp/junk | grep "${str}" >> DEBUG 
+            cat /tmp/junk | sed sed "s#\(${str// /.}\)#\033[34m\1\033[0m#g" >> DEBUG 
             printf "\n" >> DEBUG 
             exit 1
         else
