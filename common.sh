@@ -219,7 +219,9 @@ get_line_number() {
     tail -n +"$((start+1))" "$file" >> "$temp_file"
     
     echo "GREP OUPUT"
+    set -x 
     grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" >> DEBUG 
+    set +x
     echo "END GREP OUTPUT"
 
     local ln=$(grep -n -m 1 -E "^.{0,25}${1}" "$temp_file" | cut -d: -f1)
