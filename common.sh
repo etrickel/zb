@@ -268,7 +268,7 @@ function verifyInOrder()
             printf "Expected order of values are " >> DEBUG 
             IFS=","; printf "${order[*]}\n" > /tmp/junk
             pattern=$(IFS="|"; echo "${order[*]}")
-            grep "$pattern" /tmp/OUTPUT > /tmp/temp
+            grep -E --color=always "$pattern|$" /tmp/OUTPUT > /tmp/temp
             cp /tmp/temp /tmp/OUTPUT
 
             printf "\n" >> DEBUG 
