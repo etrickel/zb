@@ -221,7 +221,7 @@ get_line_number() {
     # Append the rest of the file starting from line x+1
     tail -n +"$((start+1))" "$file" >> "$temp_file"
     
-    local ln=$(grep -n -m 1 -E '^.{0,25}'${1} "$temp_file" | cut -d: -f1)
+    local ln=$(grep -n -m 1 -E '^.{0,60}'${1} "$temp_file" | cut -d: -f1)
     
     local maxline=$4 
 
