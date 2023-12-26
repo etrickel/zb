@@ -265,7 +265,7 @@ function verifyInOrder()
     # Check if the substring was found
     if [[ -z "$line" ]]; then
         printf "\033[38;5;1mFAILED to find '${str}' in the proper order \033[0m\n" >> DEBUG 
-        echo "Expected order of values are ${order[@]}" >> DEBUG 
+        echo "Expected order of values are ${order[@]}" |grep "${str}" >> DEBUG 
         exit 1
     else
         # Update the start to the line number for the next search
