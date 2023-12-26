@@ -233,7 +233,14 @@ get_line_number() {
 # verifies that the text snippets provided as the first argument are encountered in order 
 # in the output from the program
 function verifyInOrder()
-{
+{   
+    if [[ "$1" == "-maxline" ]]; then
+        shift
+        maxline=$1
+        shift 
+    fi 
+    maxline=500
+
     # The last argument is separately stored
     local file=${@: -1}
 
