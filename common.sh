@@ -241,12 +241,12 @@ get_line_number() {
 # in the output from the program
 function verifyInOrder()
 {   
+    maxline=500
     if [[ "$1" == "-maxline" ]]; then
         shift
         maxline=$1
         shift 
-    fi 
-    maxline=500
+    fi     
 
     # The last argument is separately stored
     local file=${@: -1}
