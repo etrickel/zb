@@ -272,7 +272,7 @@ function verifyInOrder()
             
             pattern=$(IFS="|"; echo "${order[*]}")
             if (( $(cat /tmp/OUTPUT |wc -c ) > 20000 )); then
-                tail -500 /tmp/OUPUT > /tmp/temp
+                tail -500 /tmp/OUTPUT > /tmp/temp
             else
                 grep -E --color=always "$pattern|$" /tmp/OUTPUT > /tmp/temp
             fi 
