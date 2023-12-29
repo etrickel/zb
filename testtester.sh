@@ -53,7 +53,10 @@ if [[ -n "$testName" ]]; then
         EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
         EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
     else
-        export CFLAGS="-DBROKEN_VERSION_${testcase}"        
+        if [[ -z "$defnumber" ]]; then
+            defnumber=${testcase}
+        fi
+        export CFLAGS="-DBROKEN_VERSION_${defnumber}"        
         EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
         EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
     fi 
