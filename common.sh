@@ -271,7 +271,7 @@ function verifyInOrder()
             grep --color=always -E "${str// /.}|$" /tmp/junk >> DEBUG 
             
             pattern=$(IFS="|"; echo "${order[*]}")
-            if (( $(cat /tmp/OUTPUT |wl -c ) > 20000 )); then
+            if (( $(cat /tmp/OUTPUT |wc -c ) > 20000 )); then
                 tail -500 /tmp/OUPUT > /tmp/temp
             else
                 grep -E --color=always "$pattern|$" /tmp/OUTPUT > /tmp/temp
