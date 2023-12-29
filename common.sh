@@ -267,9 +267,9 @@ function verifyInOrder()
             printf "\033[38;5;1mFAILED to find '${str}' in the proper order \033[0m\n" >> DEBUG 
             printf "Expected order of values are " >> DEBUG 
             IFS=","; printf "${order[*]}\n" > /tmp/junk
-            set -x
+            
             grep --color=always -E "${str// /.}|$" /tmp/junk >> DEBUG 
-            set +x
+            
             pattern=$(IFS="|"; echo "${order[*]}")
             
             grep -E --color=always "$pattern|$" /tmp/OUTPUT > /tmp/temp
