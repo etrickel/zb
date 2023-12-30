@@ -291,9 +291,15 @@ function verifyInOrder()
 
 verifyCount(){
     local expectedStr="$1"
-    local expectedCount=$2
+    shift
+    local expectedCount=$1
+    shift
+    local grepopt=""
+    if [[ $1 == "-useE" ]]; then 
+        grepopt=" -E "
+    fi 
 
-    theCount=$(grep -i "${expectedStr// /}" /tmp/SQUISHED_OUTPUT | wc -l)
+    theCount=$(grep -i ${grepopt} "${expectedStr// /}" /tmp/SQUISHED_OUTPUT | wc -l)
 
     if [[  $theCount -eq $expectedCount ]]; then
         echo "Found expected number of '$expectedStr' in output " >> DEBUG
