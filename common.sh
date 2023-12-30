@@ -304,7 +304,7 @@ verifyCount(){
     if [[  $theCount -eq $expectedCount ]]; then
         echo "Found $theCount lines that matched the pattern '$expectedStr' in the output " >> DEBUG
     else
-        log_neg "Failed Test, looking for the input to produce $expectedCount lines that match the pattern \033[38;5;197mgrep -i $grepopt '$expectedStr'\033[38;5;3m in program's output; instead found ${theCount} lines meeting the criteria.\nCheck that your program is displaying the correct number of lines for the input.\nYou might also consider removing any debugging code that might be matching the pattern. \033[0m\n"
+        log_neg "Failed Test, looking for the input to produce $expectedCount lines that match the pattern \033[38;5;197m \ngrep -i $grepopt '$expectedStr'  \033[38;5;3m \nin program's output; instead found ${theCount} lines meeting the criteria.\nCheck that your program is displaying the correct number of lines for the input.\nYou might also consider removing any debugging code that might be matching the pattern. \033[0m\n"
         exit 1
     fi
 }
