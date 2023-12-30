@@ -302,10 +302,9 @@ verifyCount(){
     theCount=$(grep -i ${grepopt} "${expectedStr// /}" /tmp/SQUISHED_OUTPUT | wc -l)
 
     if [[  $theCount -eq $expectedCount ]]; then
-        echo "Found expected number of '$expectedStr' in output " >> DEBUG
+        echo "Found $theCount lines that matched the pattern '$expectedStr' in the output " >> DEBUG
     else
-        echo "theCount=$theCount"
-        log_neg "Failed, found the wrong number of '$expectedStr' in output, found ${theCount} \033[0m\n"
+        log_neg "Failed Test, looking for the input to produce $expectedCount lines that match the pattern `\033[36mgrep -i $grepopt '$expectedStr'\033[38;5;3m` in program's output; instead found ${theCount} lines meeting the criteria. Check that your program is displaying the correct number of lines for the input. You might also consider removing any debugging code that might be matching the pattern. \033[0m\n"
         exit 1
     fi
 }
