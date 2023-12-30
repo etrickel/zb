@@ -75,7 +75,7 @@ else
     
     echo "Testing Base Test #${testcase} Expecting Test to Pass = ${testPositive}" >> DEBUG 
 
-    if grep -q "REPLACE_ME" test?.sh; then 
+    if grep -q "REPLACE_ME" test${testcase}.sh; then 
         echo "The test1.sh and test2.sh must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG 
         echo "np" > RESULT
         exit 1
