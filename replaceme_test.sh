@@ -10,25 +10,35 @@ function verifyAllTestFiles() {
 
     for (( x=$fileStart; x <= $fileCount; x++ )); do 
         if grep -q "REPLACE_ME" test${x}.sh; then 
-            echo "The tests must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments"
-            echo "Found REPLACE_ME in test${x}.sh please create your test case "
+            echo "The tests must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG
+            echo "Found REPLACE_ME in test${x}.sh please create your test case " >> DEBUG
             echo "np" > RESULT
             exit 1
         fi         
     done 
 
+    echo "Test Cases Pass REPLACE_ME test."    
+    echo "p" > RESULT
 }
 
 if [[ -f test1.sh ]]; then 
     if grep -q "REPLACE_ME" test?.sh; then 
-        echo "The tests must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments"
+        echo "The tests must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG
         echo "np" > RESULT
         exit 1
     fi 
 fi 
-if [[ -f test1.c ]]; then 
+if [[ -f test.c ]]; then 
     if grep -q "REPLACE_ME" test.c; then 
-        echo "The file test.c must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments"
+        echo "The file test.c must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG
+        echo "np" > RESULT
+        exit 1
+    fi 
+fi 
+
+if [[ -f test.cpp ]]; then 
+    if grep -q "REPLACE_ME" test.cpp; then 
+        echo "The file test.cpp must have the REPLACE_ME removed from everywhere even comments if it somehow got into the comments" >> DEBUG
         echo "np" > RESULT
         exit 1
     fi 
