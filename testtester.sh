@@ -88,8 +88,8 @@ else
 
     fi 
     if [[ "${testPositive,,}" == "true" ]]; then 
-        echo "testing positive test" 
-        CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT
+        echo "testing positive test" >> DEBUG 
+        CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT 2>&1
 
         if grep -i -q -E "(Pass.*Test|Test.*Pass)" /tmp/PASSEDOUT ; then
             echo 'p' > RESULT
