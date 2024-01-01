@@ -83,7 +83,7 @@ else
 
     if [[ "${testCoverage,,}" == "true" ]]; then 
         if [[ -n "$DO_SIMPLE_COMPILE" ]]; then 
-            CFLAGS="" gcc main.c -Wall -Werror -g -o main.bin >> DEBUG 2>&1
+            gcc main.c -Wall -Werror -g -o main.bin >> DEBUG 2>&1
         fi 
         CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT
         
@@ -93,7 +93,7 @@ else
     if [[ "${testPositive,,}" == "true" ]]; then 
         echo "testing positive test" >> DEBUG 
         if [[ -n "$DO_SIMPLE_COMPILE" ]]; then 
-            CFLAGS="" gcc main.c -Wall -Werror -g -o main.bin >> DEBUG 2>&1
+            gcc main.c -Wall -Werror -g -o main.bin >> DEBUG 2>&1
         fi 
         CFLAGS="" bash test${testcase}.sh > /tmp/PASSEDOUT 2>&1
 
@@ -112,7 +112,7 @@ else
         fi 
         echo "my def number = $defnumber" >> DEBUG 
         if [[ -n "$DO_SIMPLE_COMPILE" ]]; then 
-            CFLAGS="-DBROKEN_VERSION_${defnumber}" gcc main.c -Wall -Werror -g -o main.bin >> DEBUG 2>&1
+             gcc main.c -DBROKEN_VERSION_${defnumber} -Wall -Werror -g -o main.bin >> DEBUG 2>&1
         fi 
         CFLAGS="-DBROKEN_VERSION_${defnumber}" bash test${testcase}.sh > /tmp/FAILEDOUT
         
