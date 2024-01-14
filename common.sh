@@ -175,9 +175,9 @@ function compile(){
         make    >> DEBUG 2>&1
     else 
         if [[ -f maze.h ]]; then 
-            gcc -g -Wall -Werror -o $CFLAGS main.bin main.c maze.h 
+            gcc -g -Wall -Werror $CFLAGS -o main.bin main.c maze.h 
         else
-            gcc -g -Wall -Werror -o $CFLAGS main.bin main.c 
+            gcc -g -Wall -Werror $CFLAGS -o main.bin main.c 
         fi 
     fi 
 
