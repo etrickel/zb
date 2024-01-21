@@ -14,6 +14,14 @@ if [[ -d /usercode ]]; then
     cd /usercode || exit 33
 fi
 
+if find . -name 'main.c'; then echo yes; fi    
+    if grep -iqEz "exec.?.?.?\(.*\)" *.c* || grep -iqEz "system\(.*\)" *.c* || grep -iqEz "popen\(.*\)" *.c*; then 
+        echo "Failed test because use of secondary executable discovered." >> DEBUG 
+        echo "np" > RESULT
+        exit 252
+    fi 
+fi 
+
 ###########################################################################################
 #    START FUNCTIONS SECTION
 ###########################################################################################
