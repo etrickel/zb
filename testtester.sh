@@ -127,6 +127,12 @@ else
         fi 
         CFLAGS="-DBROKEN_VERSION_${defnumber}" bash test${testcase}.sh > /tmp/FAILEDOUT
         
+        if grep -i "Test Passed" /tmp/OUTPUT && grep -i "Test Failed" /tmp/OUTPUT ; then # should not find in output
+            echo 'np' > RESULT
+            printf "\n\033[36mFound both 'Test Passed' and 'Test Failed' in the same test file, this should not happen. One test per file and the result should be either 'Test Passed' or 'Test Failed' never both. \033[0m\n" >> DEBUG
+            exit 22
+        fi
+        
         if grep -i -q -E "(Fail.*Test|Test.*Fail)" /tmp/FAILEDOUT ; then
             echo 'p' > RESULT
             printf "\033[38;5;10mPASSED b/c test failed for broken test\033[0m\n"  >> DEBUG
