@@ -14,13 +14,16 @@ if [[ -d /usercode ]]; then
     cd /usercode || exit 33
 fi
 
-#if find . -name 'main.c'; then 
-    #if grep -iqEz "exec.?.?.?\(.*\)" *.c* || grep -iqEz "system\(.*\)" *.c* || grep -iqEz "popen\(.*\)" *.c*; then 
-    #    echo "Failed test because use of secondary executable discovered." >> DEBUG 
-    #    echo "np" > RESULT
-     #   exit 252
-  #  fi 
-#fi 
+# if [[ $(basename "$0") == "coding_rooms_unit_tests.sh" ]]; then
+#   rm -f modelGood.bin mainGood.bin
+#   if find . -name 'main.c'; then 
+#         if grep -iqEz "exec.?.?.?\(.*\)" *.c || grep -iqEz "system\(.*\)" *.c || grep -iqEz "popen\(.*\)" *.c; then 
+#             echo "Failed test because use of secondary executable discovered." >> DEBUG 
+#             echo "np" > RESULT
+#             exit 252
+#         fi 
+#     fi 
+# fi
 
 ###########################################################################################
 #    START FUNCTIONS SECTION

@@ -67,6 +67,11 @@ if [[ -n "$testName" ]]; then
     
     ./test.bin ${testName} > /tmp/OUTPUT 2>&1
 
+    if grep -i "Test Passed" /tmp/OUTPUT && grep -i "Test Failed" /tmp/OUTPUT ; then # should not find in output
+        echo 'np' > RESULT
+        printf "\n\033[36mFound both 'Test Passed' and 'Test Failed' in the same test file, this should not happen. One test per file and the result should be either 'Test Passed' or 'Test Failed' never both. \033[0m\n" >> DEBUG
+        exit 22
+    fi
 
     testoutputSimple "$EXPECTED_OUTPUT" " -E "
 
