@@ -48,17 +48,27 @@ if [[ -n "$testName" ]]; then
     
     echo "Testing Unit Test #${testcase} Expecting Test to Pass = ${testPositive}" >> DEBUG 
     
+    underscore_count=$(grep -o "_" <<< "$testName" | wc -l)
+
     if [[ "$testPositive" == "true" ]]; then
         export CFLAGS=""
-        EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
-        EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
+        if grep -i "test_" <<< $testName ; then 
+            EXPECTED_OUTPUT="Test PASSED.*${testName//test_/}"
+        else 
+            EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
+            EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
+        fi 
     else
         if [[ -z "$defnumber" ]]; then
             defnumber=${testcase}
         fi
         export CFLAGS="-DBROKEN_VERSION_${defnumber}"        
-        EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
-        EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
+        if grep -i "test_" <<< $testName ; then 
+            EXPECTED_OUTPUT="Test PASSED.*${testName//test_/}"
+        else 
+            EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
+            EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
+        fi 
     fi 
     
     make clean 
@@ -132,7 +142,7 @@ else
             printf "\n\033[36mFound both 'Test Passed' and 'Test Failed' in the same test file, this should not happen. One test per file and the result should be either 'Test Passed' or 'Test Failed' never both. \033[0m\n" >> DEBUG
             exit 22
         fi
-        
+
         if grep -i -q -E "(Fail.*Test|Test.*Fail)" /tmp/FAILEDOUT ; then
             echo 'p' > RESULT
             printf "\033[38;5;10mPASSED b/c test failed for broken test\033[0m\n"  >> DEBUG
