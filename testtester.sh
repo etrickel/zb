@@ -64,7 +64,7 @@ if [[ -n "$testName" ]]; then
         fi
         export CFLAGS="-DBROKEN_VERSION_${defnumber}"        
         if grep -i "test_" <<< $testName ; then 
-            EXPECTED_OUTPUT="Test PASSED.*${testName//test_/}"
+            EXPECTED_OUTPUT="Test Failed.*${testName//test_/}"
         else 
             EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
             EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
