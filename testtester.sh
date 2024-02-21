@@ -52,6 +52,7 @@ if [[ -n "$testName" ]]; then
     
     funname="${testName//test_/}"
     funname="${funname%%_*}"
+    funname="${funname//test/}"
 
     if [[ "$testPositive" == "true" ]]; then
         export CFLAGS=""
