@@ -50,9 +50,9 @@ if [[ -n "$testName" ]]; then
     
     underscore_count=$(grep -o "_" <<< "$testName" | wc -l)
     
-    funname="${testName//test_/}"
-    funname="${funname%%_*}"
-    funname="${funname//test/}"
+    # funname="${testName//test_/}"
+    # funname="${funname%%_*}"
+    # funname="${funname//test/}"
 
     if [[ "$testPositive" == "true" ]]; then
         export CFLAGS=""
