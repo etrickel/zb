@@ -49,13 +49,17 @@ if [[ -n "$testName" ]]; then
     echo "Testing Unit Test #${testcase} Expecting Test to Pass = ${testPositive}" >> DEBUG 
     
     underscore_count=$(grep -o "_" <<< "$testName" | wc -l)
+    
+    funname="${testName//test_/}"
+    funname="${funname%%_*}"
 
     if [[ "$testPositive" == "true" ]]; then
         export CFLAGS=""
         if grep -i "test_" <<< $testName ; then 
-            EXPECTED_OUTPUT="Test PASSED.*${testName//test_/}"
+            
+            EXPECTED_OUTPUT="Test PASSED.*${funname}"
         else 
-            EXPECTED_OUTPUT="Test PASSED.*${testName//test/}"
+            EXPECTED_OUTPUT="Test PASSED.*${funname}"
             EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
         fi 
     else
@@ -64,9 +68,9 @@ if [[ -n "$testName" ]]; then
         fi
         export CFLAGS="-DBROKEN_VERSION_${defnumber}"        
         if grep -i "test_" <<< $testName ; then 
-            EXPECTED_OUTPUT="Test Failed.*${testName//test_/}"
+            EXPECTED_OUTPUT="Test Failed.*${funname}"
         else 
-            EXPECTED_OUTPUT="Test Failed.*${testName//test/}"
+            EXPECTED_OUTPUT="Test Failed.*${funname}"
             EXPECTED_OUTPUT="${EXPECTED_OUTPUT%_*}"
         fi 
     fi 
