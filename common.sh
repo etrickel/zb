@@ -188,7 +188,11 @@ function compile(){
         if [[ -f maze.h ]]; then 
             gcc -g -Wall -Werror $CFLAGS -o main.bin main.c maze.h 
         else
-            gcc -g -Wall -Werror $CFLAGS -o main.bin main.c 
+            if [[ -f main.cpp ]]; then 
+                g++ -g -Wall -Werror $CFLAGS -o main.bin main.cpp
+            else
+                gcc -g -Wall -Werror $CFLAGS -o main.bin main.c 
+            fi 
         fi 
     fi 
 
