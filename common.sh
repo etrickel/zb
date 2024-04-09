@@ -241,14 +241,13 @@ get_line_number() {
     local maxline=$4 
 
     if (( ln > maxline )); then
-        printf "\033[38;5;14mMatch found for '${1}' in output at line $ln, which is higher than the maximum allowed of $maxline lines.  This is usually results when there's too much debug code or the program is not properly limiting the output to the requirements\n\033[0m" >> DEBUG 
-
+        printf "\033[38;5;14mMatch found for '${1}' in output at line $ln, which is higher than the maximum allowed of $maxline lines.  This is usually results when there's too much debug code or the program is not properly limiting the output to the requirements\n\033[0m" >> DEBUG         
     elif (( ln > start )); then
-        printf "Match found for '${1}' in output at line $ln, which is greater than the last line found at ${2}\n" >> DEBUG 
-        printf "${ln}"
+        printf "Match found for '${1:0:10}...' at line $ln \n" >> DEBUG 
+        printf "Match found at line ${ln}" >> DEBUG
     else
         printf "Failed finding next match '${1}' in output at line $ln, but need to find after ${2}\n" >> DEBUG 
-        printf ""
+        printf "" >> DEBUG 
     fi 
 }
 
