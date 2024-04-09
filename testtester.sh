@@ -50,9 +50,9 @@ if [[ -n "$testName" ]]; then
     
     underscore_count=$(grep -o "_" <<< "$testName" | wc -l)
     
-    # funname="${testName//test_/}"
-    # funname="${funname%%_*}"
-    # funname="${funname//test/}"
+    funname="${testName//test_/}"
+    funname="${funname%%_*}"
+    funname="${funname//test/}"
 
     if [[ "$testPositive" == "true" ]]; then
         export CFLAGS=""
@@ -128,6 +128,7 @@ else
             printf "\033[38;5;10mPASSED b/c test passed for working model version\033[0m\n" >> DEBUG
         else
             printf "\033[38;5;1mFAILED test of test${testcase}.sh, the test script should have passed this program with 'Passed Test'\033[0m\n" >> DEBUG 
+
             echo "np" > RESULT
             exit 1
         fi 

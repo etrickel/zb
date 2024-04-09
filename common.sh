@@ -270,7 +270,7 @@ function verifyInOrder()
     local order=("${@:1:$#-1}")
     local start=0
     
-    IFS=","; printf "This test is verifying that following items appear in order: \n\t ${order[*]} \n" >> DEBUG 
+    IFS=","; printf "This test is verifying that expected items are found in order \n" >> DEBUG 
     # Loop through each substring
     for str in "${order[@]}"; do
     # Get the line number of the first occurrence of the substring after the starting line
